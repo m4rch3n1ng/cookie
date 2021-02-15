@@ -1,0 +1,12 @@
+{
+	"name": "@m4rch/cookie",
+	"version": "0.1.0",
+	"description": "a small package to manage html cookies",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/m4rch3n1ng/cookie.git"
+	},
+	"author": "m4rch",
+	"license": "Unlicense"
+}
