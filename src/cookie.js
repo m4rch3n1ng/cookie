@@ -1,22 +1,21 @@
 window.cookie = {
 	set: function (name, content, options) {
 		if (!name || typeof name != "string" || content == undefined) return false;
-		
+
 		let path = typeof options?.path != "string" ? "/" : options.path;
-		let expires = !isNaN(+options?.expires) ? new Date(Date.now() + 8.64e+7 * +options.expires).toUTCString() : "";
+		let expires = +options?.expires && !isNaN(+options?.expires) ? new Date(Date.now() + 8.64e+7 * +options.expires).toUTCString() : "";
 		content = typeof content == "object" ? JSON.stringify(content) : content;
 
-		document.cookie = `${name}=${content};path=${path};expires="${expires}`;
+		document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(content)};path=${path};expires="${expires}`;
 
 		return true;
 	},
 	get: function (name, options) {
-		let cookies = document.cookie ? document.cookie.split("; ").map(c => c.split("=")) : [];
+		let cookies = document.cookie ? document.cookie.split("; ").map(cookie => cookie.split("=")).map(([key, value]) => [decodeURIComponent(key), decodeURIComponent(value)]) : [];
 
-		if (!name || typeof name != "string") return cookies;
+		if (!name || typeof name != "string") return name?.json ? Object.fromEntries(cookies) : cookies;
 
-		let value = cookies.find(([n]) => n == name);
-		value = value ? value[1] : undefined;
+		let value = cookies.find(([n]) => n == name)?.[0];
 
 		if (!options?.nojson && value) try { value = JSON.parse(value) } catch { };
 
@@ -25,7 +24,7 @@ window.cookie = {
 	remove: function (name, options) {
 		if (!name || typeof name != "string") return false;
 
-		document.cookie = `${name}=;path=${options?.path == undefined ? "/" : options.path};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+		document.cookie = `${encodeURIComponent(name)}=;path=${typeof options?.path != "string" ? "/" : options.path};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
 
 		return true;
 	}

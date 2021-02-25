@@ -40,6 +40,8 @@ if you are using one of the jquery variants then you are going to have to use `$
 cookie.set("name", "value")
 ```
 
+values automatically get encoded and decoded using encodeURIComponent and decodeURIComponent, respectively
+
 JSON *objects* and *arrays* are automatically stringified with `JSON.stringify()` if they are passed as a value, *null* and *undefined* do not get assigned
 
 options that can be passed are **path** and/or **expires** (in *days*)
@@ -58,7 +60,9 @@ for the value of a specific cookie use
 cookie.get("name")
 ```
 
-JSON *objects* and *arrays* are automatically parsed by `JSON.parse()`, if you dont want that use
+values get automatically decoded using decodeURIComponent
+
+JSON *objects* and *arrays* are automatically parsed by `JSON.parse()`, if you don't want that use
 
 ```js
 cookie.get("name", { nojson: true })
@@ -68,6 +72,12 @@ for an `array` of every key-value pair use
 
 ```js
 cookie.get()
+```
+
+or if you want an `object` of every cookie use
+
+```js
+cookie.get({ json: true })
 ```
 
 ### .remove(name, options?)

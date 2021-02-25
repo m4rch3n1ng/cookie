@@ -1,5 +1,7 @@
+( v 2021-02-25 )
+[ general ]
 [ content ]
-	- added set
-	- added get
-	- added remove
+	- added "json" option when getting all cookies
+	- encode and decode cookie values and names
+[ fixes ]
 [ misc ]
