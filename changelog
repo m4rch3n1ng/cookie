@@ -1,7 +1,7 @@
 ( v 2021-02-25 )
 [ general ]
 [ content ]
-	- added "json" option when getting all cookies
-	- encode and decode cookie values and names
 [ fixes ]
+	! made cookie.get work again
+	- made unencoded cookies available
 [ misc ]
